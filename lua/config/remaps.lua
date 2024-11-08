@@ -3,8 +3,8 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Best remap ever; allows you to shift lines placement
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 -- LSP related stuff
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
@@ -20,6 +20,8 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- Personal keybinds; everything is pretty much described
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { desc = "Open Netrw in current folder", silent = true }) -- Opens Netrw
-vim.keymap.set("n", "<leader>sn", ":Ex " .. vim.fn.stdpath("config") .. "<CR>", { desc = "Open Neovim config folder", silent = true })
-vim.keymap.set("n", "<leader>t", ":cd %:p:h<CR>:term<CR>", { desc = "Open terminal in current Netrw dir", noremap = true, silent = true})
-vim.keymap.set("n", "<leader>S", ":cd %:p:h<CR>", { desc = "Shift current working dir", noremap = true, silent = true})
+vim.keymap.set("n", "<leader>sn", ":Ex " .. vim.fn.stdpath("config") .. "<CR>",
+  { desc = "Open Neovim config folder", silent = true })
+vim.keymap.set("n", "<leader>t", ":cd %:p:h<CR>:term<CR>",
+  { desc = "Open terminal in current Netrw dir", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>S", ":cd %:p:h<CR>", { desc = "Shift current working dir", noremap = true, silent = true })
