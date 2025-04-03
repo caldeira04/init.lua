@@ -42,4 +42,4 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd [[colorscheme gruvbox-baby]]

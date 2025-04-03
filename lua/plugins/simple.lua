@@ -1,4 +1,3 @@
 return {
-  {'numToStr/Comment.nvim', opts = {}},
-  {'tris203/precognition.nvim', opts = {}}
+  { 'numToStr/Comment.nvim', opts = {} },
 }
