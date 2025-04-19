@@ -19,5 +19,10 @@ return {
   },
   {
     "luisiacc/gruvbox-baby"
+  },
+  {
+    "Shatur/neovim-ayu",
+    mirage = true,
   }
+
 }
