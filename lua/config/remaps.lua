@@ -44,11 +44,11 @@ vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })            
 vim.keymap.set("n", "<leader><leader>", ":so %<CR>", { desc = "Source current file" }) -- Source current file
 
 -- Vim fugitive
-vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Open git commit" })
-vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Open git push" })
-vim.keymap.set("n", "<leader>gP", ":Git pull<CR>", { desc = "Open git pull" })
-vim.keymap.set("n", "<leader>ga", ":Git add %<CR>", { desc = "Open git add" })
-vim.keymap.set("n", "<leader>gA", ":Git add .<CR>", { desc = "Open git add all" })
+vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git commit" })
+vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Git push" })
+vim.keymap.set("n", "<leader>gP", ":Git pull<CR>", { desc = "Git pull" })
+vim.keymap.set("n", "<leader>ga", ":Git add %<CR>", { desc = "Git add" })
+vim.keymap.set("n", "<leader>gA", ":Git add .<CR>", { desc = "Git add all" })
 vim.keymap.set("n", "<leader>gq", "<cmd>q<CR>", { desc = "Close message" })
 vim.keymap.set("n", "<leader>gl", function()
   vim.cmd("Git blame")
@@ -100,7 +100,7 @@ vim.keymap.set("n", "<leader>gb", function()
             if branch:match("^remotes/") then
               vim.notify("Não dá pra deletar branch remota localmente, animal 🐒", vim.log.levels.ERROR)
             else
-              vim.cmd("Git branch -d " .. branch)
+              vim.cmd("Git branch -D " .. branch)
             end
           end
         end)
