@@ -37,7 +37,7 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { desc = "Open Netrw in current folder", silent = true }) -- Opens Netrw
 vim.keymap.set("n", "<leader>sn", ":Ex " .. vim.fn.stdpath("config") .. "<CR>",
   { desc = "Open Neovim config folder", silent = true })
-vim.keymap.set("n", "<leader>t", ":cd %:p:h<CR>:term<CR>",
+vim.keymap.set("n", "<leader>t", ":term<CR>",
   { desc = "Open terminal in current Netrw dir", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>S", ":cd %:p:h<CR>", { desc = "Shift current working dir", noremap = true, silent = true })
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })                   -- Exit insert mode
