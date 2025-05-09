@@ -43,3 +43,34 @@ require("lazy").setup({
 })
 
 vim.cmd [[colorscheme ayu-mirage]]
+
+function Transparent(color)
+  color = color or "ayu-mirage"
+  vim.cmd.colorscheme(color)
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+end
+
+Transparent()
+
+require("notify").setup({
+  background_colour = "#000000",
+  stages = "fade",
+  timeout = 2000,
+  minimum_width = 50,
+  max_width = 100,
+  max_height = 20,
+  render = "default",
+  top_down = true,
+})
+
+require("render-markdown").setup({
+  heading = {
+    sign = false,
+    position = 'inline',
+    width = 'block',
+    left_pad = 2,
+    right_pad = 2,
+  }
+})

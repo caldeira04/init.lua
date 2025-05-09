@@ -7,19 +7,11 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 -- Movement and navigation
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- Move linha pra baixo em visual mode
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv") -- Move linha pra cima em visual mode
-vim.keymap.set("n", "J", "mzJ`z")            -- Junta linhas mas mantém cursor na posição original
-vim.keymap.set("n", "<C-d>", "<C-d>zz")      -- Desce a tela e centraliza
-vim.keymap.set("n", "<C-u>", "<C-u>zz")      -- Sobe a tela e centraliza
-vim.keymap.set("n", "n", "nzzzv")            -- Vai pro próximo match e centraliza
-vim.keymap.set("n", "N", "Nzzzv")            -- Vai pro anterior match e centraliza
-
--- LSP related stuff
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic Error messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic Quickfix list" })
+vim.keymap.set("n", "J", "mzJ`z")       -- Junta linhas mas mantém cursor na posição original
+vim.keymap.set("n", "<C-d>", "<C-d>zz") -- Desce a tela e centraliza
+vim.keymap.set("n", "<C-u>", "<C-u>zz") -- Sobe a tela e centraliza
+vim.keymap.set("n", "n", "nzzzv")       -- Vai pro próximo match e centraliza
+vim.keymap.set("n", "N", "Nzzzv")       -- Vai pro anterior match e centraliza
 
 -- Yanking and pasting
 vim.keymap.set("x", "<leader>p", [["_dP]])         -- Cola sem sobrescrever o clipboard
