@@ -1,1 +1,3 @@
-../../linux-config/nvim/.config/nvim/init.lua
+require("config.lazy")
+require("config.remaps")
+require("config.opts")
