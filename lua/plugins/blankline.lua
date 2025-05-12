@@ -3,7 +3,7 @@ return {
   main = "ibl",
   opts = {},
   config = function()
-    vim.api.nvim_set_hl(0, "IblScope", { fg = "#00FFFF", bg = "#000000" })
+    vim.api.nvim_set_hl(0, "IblScope", { fg = "#FFFFFF", bg = "#000000" })
     require("ibl").setup {
       indent = {
         char = "│",

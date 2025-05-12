@@ -15,3 +15,17 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.list = true
 vim.opt.listchars:append {tab = "▸ "}
+
+vim.opt.pumblend = 10
+vim.opt.winblend = 10
+
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
