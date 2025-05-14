@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "tokyonight"
+	color = color or "rose-pine"
 	vim.cmd.colorscheme(color)
 
 	-- Change the background color of the status line
@@ -11,27 +11,6 @@ function ColorMyPencils(color)
 end
 
 return {
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		opts = { },
-    config = function()
-      ColorMyPencils()
-    end,
-	},
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-	},
-	{
-		"luisiacc/gruvbox-baby",
-	},
-	{
-		"Shatur/neovim-ayu",
-		mirage = true,
-	},
   {
     "rose-pine/neovim",
     name = "rose-pine",
