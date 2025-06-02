@@ -36,3 +36,13 @@ require("nvim-ts-autotag").setup({
     enable_close_on_slash = true,
   }
 })
+
+autocmd("BufWritePre", {
+  pattern = "*",
+  desc = "Auto-format on save",
+  callback = function()
+    vim.lsp.buf.format({
+      async = false,
+    })
+  end,
+})
