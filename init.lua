@@ -116,6 +116,12 @@ vim.opt.smartindent = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 
+vim.diagnostic.config({
+	virtual_lines = true,
+})
+
+vim.o.winborder = "rounded"
+
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("TextYankPost", {
