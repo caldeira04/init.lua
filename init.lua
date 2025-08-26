@@ -104,13 +104,13 @@ end)
 
 map("n", "[d", function()
     vim.diagnostic.jump({
-        count = 1,
+        count = -1,
         float = true
     })
 end)
 map("n", "]d", function()
     vim.diagnostic.jump({
-        count = -1,
+        count = 1,
         float = true
     })
 end)
