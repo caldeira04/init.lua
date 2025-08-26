@@ -12,8 +12,11 @@ vim.pack.add({
     { src = "https://github.com/supermaven-inc/supermaven-nvim" },
     { src = "https://github.com/rose-pine/neovim",                         name = "rose-pine" },
     { src = "https://github.com/windwp/nvim-autopairs" },
-    { src = "https://github.com/windwp/nvim-ts-autotag" }
+    { src = "https://github.com/windwp/nvim-ts-autotag" },
+    { src = "https://github.com/echasnovski/mini.pick" },
 })
+
+local map = vim.keymap.set
 
 require("nvim-autopairs").setup()
 require("nvim-ts-autotag").setup({
@@ -33,6 +36,9 @@ require("mason-tool-installer").setup({
         "ts_ls"
     },
 })
+require("mini.pick").setup()
+
+map('n', '<leader>F', ":Pick files<CR>")
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -75,31 +81,31 @@ vim.cmd [[colorscheme rose-pine]]
 
 -- keymaps
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
-vim.keymap.set("i", "<C-c", "<Esc>")
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<leader>f", function()
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+map("n", "<leader>pv", ":Ex<CR>")
+map("i", "<C-c", "<Esc>")
+map("x", "<leader>p", [["_dP]])
+map({ "n", "v" }, "<leader>y", [["+y]])
+map("n", "<leader>Y", [["+Y]])
+map({ "n", "v" }, "<leader>d", "\"_d")
+map("n", "<C-h>", "<C-w><C-h>")
+map("n", "<C-l>", "<C-w><C-l>")
+map("n", "<C-j>", "<C-w><C-j>")
+map("n", "<C-k>", "<C-w><C-k>")
+map("n", "J", "mzJ`z")
+map("n", "<leader>f", function()
     vim.lsp.buf.format({ async = true })
 end)
 
-vim.keymap.set("n", "[d", function()
+map("n", "[d", function()
     vim.diagnostic.jump({
         count = 1,
         float = true
     })
 end)
-vim.keymap.set("n", "]d", function()
+map("n", "]d", function()
     vim.diagnostic.jump({
         count = -1,
         float = true
