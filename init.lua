@@ -10,10 +10,11 @@ vim.pack.add({
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/supermaven-inc/supermaven-nvim" },
-    { src = "https://github.com/rose-pine/neovim",                         name = "rose-pine" },
+    { src = "https://github.com/vague2k/vague.nvim",                       name = "vague" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
     { src = "https://github.com/echasnovski/mini.pick" },
+    { src = "https://github.com/kylechui/nvim-surround" },
 })
 
 local map = vim.keymap.set
@@ -37,8 +38,10 @@ require("mason-tool-installer").setup({
     },
 })
 require("mini.pick").setup()
+require("nvim-surround").setup()
 
-map('n', '<leader>F', ":Pick files<CR>")
+map('n', '<leader>F', ':Pick files<CR>')
+map('n', '<leader>bf', ':Pick buffers<CR>')
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -77,7 +80,7 @@ require("blink.cmp").setup({
     },
 })
 
-vim.cmd [[colorscheme rose-pine]]
+vim.cmd [[colorscheme vague]]
 
 -- keymaps
 
