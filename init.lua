@@ -10,7 +10,7 @@ vim.pack.add({
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/supermaven-inc/supermaven-nvim" },
-    { src = "https://github.com/vague2k/vague.nvim",                       name = "vague" },
+    { src = "https://github.com/rose-pine/neovim",                         name = "rose-pine" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
     { src = "https://github.com/echasnovski/mini.pick" },
@@ -80,7 +80,7 @@ require("blink.cmp").setup({
     },
 })
 
-vim.cmd [[colorscheme vague]]
+vim.cmd [[colorscheme rose-pine]]
 
 -- keymaps
 
