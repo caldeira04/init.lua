@@ -18,6 +18,8 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/tronikelis/ts-autotag.nvim" },
+	{ src = "https://github.com/oskarnurm/koda.nvim" },
+	{ src = "https://github.com/arnamak/stay-centered.nvim" },
 })
 
 local map = vim.keymap.set
@@ -32,7 +34,7 @@ require("nvim-treesitter").setup({
 		enable = true,
 	},
 })
-
+require("stay-centered").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"lua_ls",
@@ -90,7 +92,8 @@ require("blink.cmp").setup({
 	},
 })
 
-vim.cmd([[colorscheme rose-pine]])
+require("koda").setup({ transparent = true })
+vim.cmd("colorscheme koda")
 
 -- keymaps
 
