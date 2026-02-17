@@ -77,7 +77,7 @@ require("blink.cmp").setup({
 -- 5. Mason & Servidores LSP
 require("mason").setup()
 require("mason-tool-installer").setup({
-	ensure_installed = { "lua_ls", "stylua", "ts_ls" },
+	ensure_installed = { "lua_ls", "stylua", "vtsls" },
 })
 
 local lspconfig = require("lspconfig")
@@ -105,7 +105,7 @@ require("mason-lspconfig").setup({
 			})
 		end,
 
-		["ts_ls"] = function()
+		["vtsls"] = function()
 			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
 				-- Se você usa ESLint, pode desativar o linting do TS aqui para evitar duplicados
