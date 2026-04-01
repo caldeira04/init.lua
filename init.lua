@@ -65,7 +65,7 @@ require("nvim-treesitter").setup({
 require("blink.cmp").setup({
 	signature = { enabled = true },
 	completion = {
-		documentation = { auto_show = true, auto_show_delay_ms = 500 },
+		documentation = { auto_show = true, auto_show_delay_ms = 0 },
 		menu = {
 			draw = {
 				columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
@@ -102,6 +102,12 @@ require("mason-lspconfig").setup({
 						telemetry = { enable = false },
 					},
 				},
+			})
+		end,
+
+		["laravel-ls"] = function()
+			lspconfig.laravel_ls.setup({
+				capabilities = capabilities,
 			})
 		end,
 
