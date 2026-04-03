@@ -1,11 +1,11 @@
 {
   "plugins": {
     "LuaSnip": {
-      "rev": "dae4f5aaa3574bd0c2b9dd20fb9542a02c10471c",
+      "rev": "642b0c595e11608b4c18219e93b88d7637af27bc",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "blink.cmp": {
-      "rev": "b4d379393882561f9055abe780342ee00f02c573",
+      "rev": "679a2ffad4bae720bb12e6bcdf57b0dd8b8a80f8",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "friendly-snippets": {
@@ -13,11 +13,11 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "koda.nvim": {
-      "rev": "335db37b4b6a2c2cede79b44cd0cb07aa0edef59",
+      "rev": "a560a332ccc1eb2caacb280a390213bb9f37b3cb",
       "src": "https://github.com/oskarnurm/koda.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "21c2a84ce368e99b18f52ab348c4c02c32c02fcf",
+      "rev": "25f609e7fca78af7cede4f9fa3af8a94b1c4950b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.pick": {
-      "rev": "4ad37ade984e69c43227b82ccdca5a92a22886de",
+      "rev": "fe079c2bd894a5ee70b62f23d819620ef40c4949",
       "src": "https://github.com/echasnovski/mini.pick"
     },
     "nvim-autopairs": {
@@ -37,15 +37,15 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6",
+      "rev": "8e2084bf5e40c79c1f42210a6ef96a0a4793a763",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
-      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
+      "rev": "19e39478ccf5fa2eefdb3595af2f2927d0ff2416",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "dc42c209f3820bdfaae0956f15de29689aa6b451",
+      "rev": "539abf6da5ee8702e37b82cc953131dadd570da2",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/supermaven-inc/supermaven-nvim"
     },
     "telescope.nvim": {
-      "rev": "5255aa27c422de944791318024167ad5d40aad20",
+      "rev": "cfb85dcf7f822b79224e9e6aef9e8c794211b20b",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "ts-autotag.nvim": {

@@ -8,7 +8,7 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 opt.expandtab = true
-opt.tabstop = 4 -- Geralmente 4 é o padrão para evitar código muito "espremido"
+opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.scrolloff = 8
@@ -16,127 +16,234 @@ opt.signcolumn = "yes"
 vim.o.winborder = "rounded"
 
 -- ========================================================================== --
+--                              BOOTSTRAP LAZY                                --
+-- ========================================================================== --
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git", "clone", "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- ========================================================================== --
 --                                  PLUGINS                                   --
 -- ========================================================================== --
-vim.pack.add({
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-	{ src = "https://github.com/L3MON4D3/LuaSnip" },
-	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	{ src = "https://github.com/Saghen/blink.cmp" },
-	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
-	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
-	{ src = "https://github.com/windwp/nvim-autopairs" },
-	{ src = "https://github.com/echasnovski/mini.pick" },
-	{ src = "https://github.com/kylechui/nvim-surround" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/tronikelis/ts-autotag.nvim" },
-	{ src = "https://github.com/oskarnurm/koda.nvim" },
-	{ src = "https://github.com/arnamak/stay-centered.nvim" },
+require("lazy").setup({
+    -- Interface
+    { "oskarnurm/koda.nvim" },
+    { "arnamak/stay-centered.nvim",     opts = {} },
+
+    -- Edição
+    { "windwp/nvim-autopairs",          opts = {} },
+    { "kylechui/nvim-surround",         opts = {} },
+    { "supermaven-inc/supermaven-nvim", opts = {} },
+
+    -- Snippets
+    {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+    },
+
+    -- Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        main = "nvim-treesitter",
+        opts = {
+            ensure_installed = {
+                "html", "javascript", "typescript",
+                "tsx", "vue", "lua", "vim", "vimdoc",
+            },
+            highlight = { enable = true },
+            auto_install = true,
+        },
+    },
+
+    -- Autocompletar
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "saadparwaiz1/cmp_luasnip",
+            "onsails/lspkind.nvim",
+        },
+        config = function()
+            local cmp     = require("cmp")
+            local luasnip = require("luasnip")
+
+            cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end,
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-e>"]     = cmp.mapping.abort(),
+                    ["<C-y>"]     = cmp.mapping.confirm({ select = true }),
+                    ["<C-n>"]     = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<C-p>"]     = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                }),
+                sources = cmp.config.sources({
+                    { name = "nvim_lsp" },
+                    { name = "luasnip" },
+                    { name = "path" },
+                }, {
+                    { name = "buffer" },
+                }),
+                formatting = {
+                    format = require("lspkind").cmp_format({
+                        mode = "symbol_text",
+                        maxwidth = 50,
+                        ellipsis_char = "...",
+                    }),
+                },
+                window = {
+                    completion    = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+            })
+        end,
+    },
+
+    -- Mason (instalador de servidores)
+    { "mason-org/mason.nvim",       opts = {} },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = { "mason-org/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                "lua-language-server",
+                "stylua",
+                "vtsls",
+                "vue-language-server",
+            },
+        },
+    },
+
+    -- Telescope / Picker
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    { "echasnovski/mini.pick",      opts = {} },
+
+    -- Autotag
+    { "tronikelis/ts-autotag.nvim", opts = {} },
 })
 
 -- ========================================================================== --
---                                CONFIGS                                     --
+--                            COLORSCHEME                                     --
 -- ========================================================================== --
-
--- 1. Interface e UI
 require("koda").setup({ transparent = true })
 vim.cmd("colorscheme koda")
-require("stay-centered").setup()
 
--- 2. Edição e utilitários
-require("nvim-autopairs").setup()
-require("supermaven-nvim").setup({})
-require("nvim-surround").setup()
-require("mini.pick").setup()
-require("luasnip.loaders.from_vscode").lazy_load()
+-- ========================================================================== --
+--                         LSP (API nativa 0.11)                              --
+-- ========================================================================== --
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- 3. Treesitter (Highlight)
-require("nvim-treesitter").setup({
-	ensure_installed = { "html", "javascript", "typescript", "tsx", "lua", "vim", "vimdoc" },
-	highlight = { enable = true },
+local mason_data   = vim.fn.stdpath("data") .. "/mason"
+local vue_ls_path  = mason_data .. "/packages/vue-language-server/node_modules/@vue/language-server"
+local tsdk_path    = mason_data .. "/packages/typescript-language-server/node_modules/typescript/lib"
+
+-- lua_ls
+vim.lsp.config("lua_ls", {
+    capabilities = capabilities,
+    cmd = { "lua-language-server" },
+    filetypes = { "lua" },
+    root_markers = { ".luarc.json", ".luarc.jsonc", "stylua.toml", ".git" },
+    settings = {
+        Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            telemetry = { enable = false },
+        },
+    },
 })
 
--- 4. LSP & Autocompletar (Blink)
-require("blink.cmp").setup({
-	signature = { enabled = true },
-	completion = {
-		documentation = { auto_show = true, auto_show_delay_ms = 0 },
-		menu = {
-			draw = {
-				columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
-			},
-		},
-	},
+-- vtsls com suporte a Vue via plugin
+vim.lsp.config("vtsls", {
+    capabilities = capabilities,
+    cmd = { "vtsls", "--stdio" },
+    filetypes = {
+        "javascript", "javascriptreact",
+        "typescript", "typescriptreact",
+        "vue",
+    },
+    root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+    settings = {
+        vtsls = {
+            tsserver = {
+                globalPlugins = {
+                    {
+                        name = "@vue/typescript-plugin",
+                        location = vue_ls_path,
+                        languages = { "vue" },
+                        configNamespace = "typescript",
+                        enableForWorkspaceTypeScriptVersions = true,
+                    },
+                },
+            },
+        },
+    },
 })
 
--- 5. Mason & Servidores LSP
-require("mason").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = { "lua_ls", "stylua", "vtsls" },
+-- vue_ls
+vim.lsp.config("vue_ls", {
+    capabilities = capabilities,
+    cmd = { "vue-language-server", "--stdio" },
+    filetypes = { "vue" },
+    root_markers = { "package.json", ".git" },
+    init_options = {
+        typescript = { tsdk = tsdk_path },
+    },
 })
 
-local lspconfig = require("lspconfig")
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-require("mason-lspconfig").setup({
-	handlers = {
-		function(server_name) -- Handler padrão para todos os servidores
-			lspconfig[server_name].setup({
-				capabilities = capabilities,
-			})
-		end,
-
-		-- Customização para servidores específicos
-		["lua_ls"] = function()
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = { globals = { "vim" } },
-						workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-						telemetry = { enable = false },
-					},
-				},
-			})
-		end,
-
-		["laravel-ls"] = function()
-			lspconfig.laravel_ls.setup({
-				capabilities = capabilities,
-			})
-		end,
-
-		["vtsls"] = function()
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-				-- Se você usa ESLint, pode desativar o linting do TS aqui para evitar duplicados
-				-- settings = { content_assertion = false }
-			})
-		end,
-	},
-})
+-- Ativa os servidores
+vim.lsp.enable({ "lua_ls", "vtsls", "vue_ls" })
 
 -- ========================================================================== --
 --                                KEYMAPS                                     --
 -- ========================================================================== --
 local map = vim.keymap.set
 
--- Navegação e Geral
+-- Geral
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>pv", ":Ex<CR>")
 map("n", "J", "mzJ`z")
 map("i", "<C-c>", "<Esc>")
 
--- Movimentação de blocos (Visual Mode)
+-- Visual: mover blocos
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
--- Clipboard e Deletar
+-- Clipboard
 map("x", "<leader>p", [["_dP]])
 map({ "n", "v" }, "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
@@ -148,48 +255,38 @@ map("n", "<C-l>", "<C-w><C-l>")
 map("n", "<C-j>", "<C-w><C-j>")
 map("n", "<C-k>", "<C-w><C-k>")
 
--- Picker / Telescope
+-- Telescope / Picker
 local builtin = require("telescope.builtin")
 map("n", "<leader>F", ":Pick files<CR>")
 map("n", "<leader>ff", builtin.find_files)
 map("n", "<leader>fg", builtin.live_grep)
 
--- LSP Keymaps
+-- LSP
 map("n", "<leader>f", function()
-	vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = true })
 end)
 map("n", "<leader>rn", function()
-	if not require("ts-autotag").rename() then
-		vim.lsp.buf.rename()
-	end
+    if not require("ts-autotag").rename() then
+        vim.lsp.buf.rename()
+    end
 end)
 
--- Diagnósticos (API nativa Neovim 0.10+)
-map("n", "[d", function()
-	vim.diagnostic.jump({ count = -1, float = true })
-end)
-map("n", "]d", function()
-	vim.diagnostic.jump({ count = 1, float = true })
-end)
+-- Diagnósticos
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
 
 -- ========================================================================== --
 --                                AUTOCMDS                                    --
 -- ========================================================================== --
 local group = vim.api.nvim_create_augroup("UserConfigs", { clear = true })
 
--- Highlight ao copiar
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = group,
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    group = group,
+    callback = function() vim.highlight.on_yank() end,
 })
 
--- Format on Save
 vim.api.nvim_create_autocmd("BufWritePre", {
-	group = group,
-	pattern = "*",
-	callback = function()
-		vim.lsp.buf.format({ async = false })
-	end,
+    group = group,
+    pattern = "*",
+    callback = function() vim.lsp.buf.format({ async = false }) end,
 })
