@@ -43,5 +43,8 @@ map("n", '<leader>co', function()
     fff.colors()
 end)
 
+map("n", '<leader>u', function()
+    vim.cmd("Undotree")
+end)
 map("n", 'gr', vim.lsp.buf.references)
 map("n", 'gi', vim.lsp.buf.implementation)
