@@ -40,7 +40,6 @@ require("lazy").setup({
     -- Edição
     { "windwp/nvim-autopairs",          opts = {} },
     { "kylechui/nvim-surround",         opts = {} },
-    { "supermaven-inc/supermaven-nvim", opts = {} },
 
     -- Snippets
     {
