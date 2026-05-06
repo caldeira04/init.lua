@@ -19,4 +19,15 @@ vim.lsp.config['vtsls'] = {
     root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" }
 }
 
-vim.lsp.enable({ 'lua_ls', 'vtsls' })
+vim.lsp.config['qmlls'] = {
+    capabilities = capabilities,
+    filetypes = { "qml" },
+    root_markers = { ".qmlls.ini" }
+}
+
+vim.lsp.config['rustc'] = {
+    capabilities = capabilities,
+    filetypes = { "rs" },
+}
+
+vim.lsp.enable({ 'lua_ls', 'vtsls', 'qmlls', 'rustc' })
