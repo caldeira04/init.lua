@@ -4,7 +4,7 @@ vim.lsp.config("*", {
     capabilities = capabilities
 })
 
-vim.lsp.enable({ 'clangd', 'lua_ls', 'vtsls', 'qmlls', 'rust_analyzer' })
+vim.lsp.enable({ 'clangd', 'lua_ls', 'vtsls', 'qmlls', 'rust_analyzer', 'gopls' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('my.lsp', {}),
