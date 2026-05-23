@@ -55,8 +55,10 @@ require("mini.surround").setup()
 --- mini picker ---
 local MiniPick = require("mini.pick")
 local MiniExtra = require("mini.extra")
+local MiniPairs = require("mini.pairs")
 MiniPick.setup()
 MiniExtra.setup()
+MiniPairs.setup()
 
 -- keymaps
 vim.keymap.set("n", "<leader>pf", function() MiniPick.builtin.files() end, { desc = "Mini File Picker" })
