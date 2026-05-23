@@ -44,6 +44,10 @@
       "rev": "437d44eb57312f23e6b931704694fc294922cd88",
       "src": "https://github.com/echasnovski/mini.pick"
     },
+    "neovim": {
+      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
+      "src": "https://github.com/rose-pine/neovim"
+    },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
