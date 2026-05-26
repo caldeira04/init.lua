@@ -26,5 +26,6 @@ vim.lsp.enable({
     "rust_analyzer",
     "ts_ls",
     "vue_ls",
-    "intelephense"
+    "intelephense",
+    "vetur"
 })
