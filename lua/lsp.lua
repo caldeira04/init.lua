@@ -27,5 +27,15 @@ vim.lsp.enable({
     "ts_ls",
     "vue_ls",
     "intelephense",
-    "vetur"
+    "clangd",
+    "css_lsp",
+    "html_lsp",
 })
+
+vim.lsp.config.ts_ls.filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+}
