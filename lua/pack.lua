@@ -1,6 +1,6 @@
 vim.pack.add({
     "https://github.com/bluz71/vim-moonfly-colors",
-    "https://github.com/rose-pine/neovim",
+    { src = "https://github.com/rose-pine/neovim",                name = "rose-pine" },
     "https://github.com/nvim-mini/mini.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
@@ -95,3 +95,11 @@ MiniDiff.setup({
 
 vim.keymap.set("n", "<leader>gg", "<cmd>tabnew | Git | only<cr>", { desc = "Fugitive Full Page New Tab" })
 vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff split", })
+
+local RosePine = require("rose-pine")
+
+RosePine.setup({
+    styles = {
+        transparency = true
+    }
+})
