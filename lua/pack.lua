@@ -7,6 +7,7 @@ vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/tpope/vim-fugitive",
+    "https://github.com/stevearc/conform.nvim",
 })
 
 -- mini files ----
@@ -101,5 +102,16 @@ local RosePine = require("rose-pine")
 RosePine.setup({
     styles = {
         transparency = true
+    }
+})
+
+require("conform").setup({
+    formatters_by_ft = {
+        php = { "pint" },
+        javascript = { "biome" },
+        typescript = { "biome" },
+        javascriptreact = { "biome" },
+        typescriptreact = { "biome" },
+        vue = { "biome" },
     }
 })
