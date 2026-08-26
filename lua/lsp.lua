@@ -30,6 +30,7 @@ vim.lsp.enable({
     "clangd",
     "css_lsp",
     "html_lsp",
+    "json_lsp"
 })
 
 vim.lsp.config.ts_ls.filetypes = {
