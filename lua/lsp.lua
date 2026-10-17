@@ -31,6 +31,8 @@ vim.lsp.enable({
     "css_lsp",
     "html_lsp",
     "json_lsp"
+    "arduino",
+    "vetur"
 })
 
 vim.lsp.config.ts_ls.filetypes = {
